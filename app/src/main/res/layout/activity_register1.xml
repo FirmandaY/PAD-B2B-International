@@ -89,14 +89,14 @@
         android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#EAEAEA"
         android:text="No file chossen"
         android:textColor="#000000"
         app:cornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/buttonToRegister2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.233"
         app:layout_constraintStart_toEndOf="@+id/button3" />
 
     <Button
@@ -104,11 +104,11 @@
         android:layout_width="135dp"
         android:layout_height="49dp"
         android:layout_marginStart="48dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#6B6BC5"
         android:text="Choose File"
         app:cornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintBottom_toTopOf="@+id/buttonToRegister2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -125,10 +125,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/buttonToRegister2"
         android:layout_width="315dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="92dp"
         android:backgroundTint="#003BCD"
         android:fontFamily="@font/roboto_slab"
         android:text="Next"
@@ -137,4 +137,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBackToLogin"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#837676"
+        android:fontFamily="@font/roboto_slab"
+        android:text="Back"
+        app:cornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonToRegister2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

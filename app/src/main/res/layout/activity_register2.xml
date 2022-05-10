@@ -85,10 +85,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/buttonRegisterAccount"
         android:layout_width="315dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="92dp"
         android:backgroundTint="#003BCD"
         android:fontFamily="@font/roboto_slab"
         android:text="Register"
@@ -96,5 +96,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBackToRegister1"
+        android:layout_width="315dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#837676"
+        android:fontFamily="@font/roboto_slab"
+        android:text="Back"
+        app:cornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonRegisterAccount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
