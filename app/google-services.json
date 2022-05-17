@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "75433824229",
+    "project_id": "b2b-international-c0ea5",
+    "storage_bucket": "b2b-international-c0ea5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75433824229:android:fa39a7615f67ff5d1fa90c",
+        "android_client_info": {
+          "package_name": "com.example.b2binternational"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75433824229-so9abr4kl80kq4tv12k7k1vukrtkm2qu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYxtBtpub_y29XsotbldX8I64skUnrULY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75433824229-so9abr4kl80kq4tv12k7k1vukrtkm2qu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
