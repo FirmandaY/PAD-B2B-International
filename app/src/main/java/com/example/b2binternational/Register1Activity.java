@@ -9,21 +9,13 @@ import android.widget.Button;
 
 public class Register1Activity extends AppCompatActivity {
 
-    private Button mButtonBackToLogin;
+    //private Button mButtonBackToLogin;
     private Button mButtonNextToRegister2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register1);
-
-        mButtonBackToLogin = findViewById(R.id.buttonBackToLogin);
-        mButtonBackToLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         mButtonNextToRegister2 = findViewById(R.id.buttonToRegister2);
         mButtonNextToRegister2.setOnClickListener(new View.OnClickListener() {

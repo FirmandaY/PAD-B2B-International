@@ -7,11 +7,11 @@
     tools:context=".Register2Activity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/logoRegis2"
         android:layout_width="190dp"
         android:layout_height="172dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/titleRegis2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,33 +20,33 @@
         app:srcCompat="@drawable/templogo" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/titleRegis2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/montserrat_alternates_bold"
         android:text="REGISTRATION"
         android:textColor="#3E0093"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/formEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/formEmail"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
         android:ems="10"
         android:hint="E-mail Address"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName7"
+        app:layout_constraintBottom_toTopOf="@+id/formUsername"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName7"
+        android:id="@+id/formUsername"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
@@ -54,12 +54,12 @@
         android:fontFamily="@font/roboto_slab"
         android:hint="Username"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword2"
+        app:layout_constraintBottom_toTopOf="@+id/formPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/formPassword"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
@@ -67,12 +67,12 @@
         android:fontFamily="@font/roboto_slab"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPassword3"
+        app:layout_constraintBottom_toTopOf="@+id/formConfirmPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPassword3"
+        android:id="@+id/formConfirmPassword"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginBottom="236dp"
@@ -88,7 +88,7 @@
         android:id="@+id/buttonRegisterAccount"
         android:layout_width="315dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="#003BCD"
         android:fontFamily="@font/roboto_slab"
         android:text="Register"
@@ -97,16 +97,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonBackToRegister1"
-        android:layout_width="315dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#837676"
-        android:fontFamily="@font/roboto_slab"
-        android:text="Back"
-        app:cornerRadius="15dp"
+    <ProgressBar
+        android:id="@+id/registerProgressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonRegisterAccount" />
+        app:layout_constraintTop_toBottomOf="@+id/formConfirmPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_radial"
+    android:background="@drawable/universal_bg_model_1"
     tools:context=".MainActivity">
 
     <FrameLayout

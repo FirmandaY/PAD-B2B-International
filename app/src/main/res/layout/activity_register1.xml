@@ -7,17 +7,17 @@
     tools:context=".Register1Activity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/logoRegis"
         android:layout_width="190dp"
         android:layout_height="172dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintBottom_toTopOf="@+id/titleRegis"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/templogo" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/titleRegis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -25,13 +25,13 @@
         android:text="REGISTRATION"
         android:textColor="#3E0093"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
+        app:layout_constraintBottom_toTopOf="@+id/formCompanyName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/formCompanyName"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
@@ -39,13 +39,13 @@
         android:fontFamily="@font/roboto_slab"
         android:hint="Company Name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName3"
+        app:layout_constraintBottom_toTopOf="@+id/formCountry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/formCountry"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
@@ -53,13 +53,13 @@
         android:fontFamily="@font/roboto_slab"
         android:hint="Country"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName4"
+        app:layout_constraintBottom_toTopOf="@+id/formAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/formAddress"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
@@ -67,12 +67,12 @@
         android:fontFamily="@font/roboto_slab"
         android:hint="Address"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName5"
+        app:layout_constraintBottom_toTopOf="@+id/formPhoneNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName5"
+        android:id="@+id/formPhoneNumber"
         android:layout_width="315dp"
         android:layout_height="50dp"
         android:layout_marginBottom="256dp"
@@ -86,49 +86,49 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#EAEAEA"
-        android:text="No file chossen"
-        android:textColor="#000000"
-        app:cornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonToRegister2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.233"
-        app:layout_constraintStart_toEndOf="@+id/button3" />
-
-    <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonUploadCertificate"
         android:layout_width="135dp"
         android:layout_height="49dp"
         android:layout_marginStart="48dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="84dp"
         android:backgroundTint="#6B6BC5"
         android:text="Choose File"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toTopOf="@+id/buttonToRegister2"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textView4"
+    <Button
+        android:id="@+id/button4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="84dp"
+        android:backgroundTint="#EAEAEA"
+        android:text="No file chosen"
+        android:textColor="#000000"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonToRegister2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@+id/buttonUploadCertificate" />
+
+    <TextView
+        android:id="@+id/titleUploadCertificate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="216dp"
         android:fontFamily="@font/roboto_slab"
         android:text="Please Upload your CV/Certificate"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintHorizontal_bias="0.316"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonToRegister2"
         android:layout_width="315dp"
         android:layout_height="48dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="#003BCD"
         android:fontFamily="@font/roboto_slab"
         android:text="Next"
@@ -138,16 +138,4 @@
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonBackToLogin"
-        android:layout_width="315dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#837676"
-        android:fontFamily="@font/roboto_slab"
-        android:text="Back"
-        app:cornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonToRegister2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
