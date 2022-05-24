@@ -86,45 +86,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonUploadCertificate"
-        android:layout_width="135dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginBottom="84dp"
-        android:backgroundTint="#6B6BC5"
-        android:text="Choose File"
-        app:cornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonToRegister2"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="84dp"
-        android:backgroundTint="#EAEAEA"
-        android:text="No file chosen"
-        android:textColor="#000000"
-        app:cornerRadius="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonToRegister2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/buttonUploadCertificate" />
-
-    <TextView
-        android:id="@+id/titleUploadCertificate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="216dp"
-        android:fontFamily="@font/roboto_slab"
-        android:text="Please Upload your CV/Certificate"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.316"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/buttonToRegister2"
         android:layout_width="315dp"
         android:layout_height="48dp"

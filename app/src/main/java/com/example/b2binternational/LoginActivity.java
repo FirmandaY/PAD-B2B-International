@@ -2,6 +2,8 @@ package com.example.b2binternational;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         mRegisterActivity = findViewById(R.id.buttonRegister);
 
+        //Cek Apakah User Telah Pernah Login Saat Membuka Aplikasi
+        if (fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+
         mLoginApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,10 +74,13 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(LoginActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            Intent toHome = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(toHome);
+                            //startActivity(new Intent(getApplicationContext(),MainActivity.class));
 
                         }else {
                             Toast.makeText(LoginActivity.this, "Error Occured!", Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
 
                         }
 
@@ -87,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private  void toRegister1Activity(){
+    private void toRegister1Activity(){
         Intent intent = new Intent(this, Register1Activity.class);
         startActivity(intent);
     }
