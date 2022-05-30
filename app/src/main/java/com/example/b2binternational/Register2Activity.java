@@ -1,16 +1,24 @@
 package com.example.b2binternational;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,7 +30,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +45,7 @@ public class Register2Activity extends AppCompatActivity {
     public static final String TAG = "TAG";
     //Definisi komponen dari file XML
     private EditText mFormEmailAddress, mFormUsername, mFormPassword, mFormConfirmPassword;
+    private ImageView mImagePreview;
     private ProgressBar registerProgressBar2;
 
     private Button mButtonRegisterAccount;
@@ -39,6 +54,7 @@ public class Register2Activity extends AppCompatActivity {
     //Definisi ke Firebase
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
+    StorageReference fStorage;
     String userID;
 
     // Mengambil Default nilai untuk data inputan dari Register1
@@ -63,10 +79,10 @@ public class Register2Activity extends AppCompatActivity {
         mFormPassword = findViewById(R.id.formPassword);
         mFormConfirmPassword = findViewById(R.id.formConfirmPassword);
 
+        mImagePreview = findViewById(R.id.imagePreview);
 
         registerProgressBar2 = findViewById(R.id.registerProgressBar2);
 
-        //mUploadCertificate = findViewById(R.id.buttonUploadCertificate);
         mButtonRegisterAccount = findViewById(R.id.buttonRegisterAccount);
 
         //Pemanggilan Fungsi (Inisiasi) Authentikasi yang Terhubung ke Firebase
@@ -75,13 +91,25 @@ public class Register2Activity extends AppCompatActivity {
         //Pemanggilan Fungsi (Inisiasi) Firestore DB
         fStore = FirebaseFirestore.getInstance();
 
+        //Pemanggilan Fungsi (Inisiasi) Firebase Storage File
+        fStorage = FirebaseStorage.getInstance().getReference();
+
         //Cek Apakah User Telah Pernah Login Saat Membuka Aplikasi
         if (fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
 
-        //Pelaksanaan Validasi Inputan Dari Pengguna
+        //Definisi tindakan jika Button Upload ditekan
+        mImagePreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Menjalankan fungsi untuk mencari sumber gambar
+                selectImage();
+            }
+        });
+
+        //Definisi tindakan jika Button Register ditekan
         mButtonRegisterAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,6 +124,7 @@ public class Register2Activity extends AppCompatActivity {
                 address = fromRegister1.getString(KEY_ADDRESS);
                 phone = fromRegister1.getString(KEY_PHONE);
 
+                //Pelaksanaan Validasi Inputan Dari Pengguna
                 if (TextUtils.isEmpty(email)){
                     mFormEmailAddress.setError("Email is Required!");
                     return;
@@ -174,5 +203,138 @@ public class Register2Activity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    //Fungsi untuk pencarian sumber gambar
+    private void  selectImage(){
+        final CharSequence[] items = {"Take Photo", "Choose From Device", "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(Register2Activity.this);
+        builder.setTitle(getString(R.string.app_name));
+        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setItems(items, (dialog, item) -> {
+            //Mengambil data langsung foto kamera
+            if (items[item].equals("Take Photo")) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 10);
+
+            //Mengambil data dari penyimpanan / galeri
+            }else if (items[item].equals("Choose From Device")) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent , "Select Image"), 20);
+
+            //Membatalkan Aksi Popup
+            }else if (items[item].equals("Cancel")) {
+                dialog.dismiss();
+            }
+        });
+        //Menampilkan Aksi Popup
+        builder.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Penerimaan data dari galeri
+        if (requestCode == 20 && resultCode == RESULT_OK && data != null){
+            final Uri path = data.getData();
+            Thread thread = new Thread(() -> {
+                try {
+                    InputStream inputStream = getContentResolver().openInputStream(path);
+                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                    mImagePreview.post(() -> {
+                        mImagePreview.setImageBitmap(bitmap);
+                    });
+                }catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            thread.start();
+        }
+
+        //Penerimaan data dari kamera langsung
+        if (requestCode == 10 && resultCode == RESULT_OK) {
+            final Bundle extras = data.getExtras();
+            Thread thread = new Thread(() -> {
+                Bitmap bitmap = (Bitmap) extras.get("data");
+                mImagePreview.post(() -> {
+                    mImagePreview.setImageBitmap(bitmap);
+                });
+            });
+            thread.start();
+        }
+    }
+
+    //Untuk upload data gambar ke Storage
+    private void uploadImage(){
+        //Compress data
+        mImagePreview.setDrawingCacheEnabled(true);
+        mImagePreview.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) mImagePreview.getDrawable() ).getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] data = byteArrayOutputStream.toByteArray();
+
+        //Simpan data ke Storage
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference reference = storage.getReference("images");
+        UploadTask uploadTask = reference.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                if (taskSnapshot.getMetadata() != null){
+                    if (taskSnapshot.getMetadata().getReference() != null){
+                        taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                saveData();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    private void saveData(){
+
+        //Mendefinisikan User ID (UID)
+        userID = fAuth.getCurrentUser().getUid();
+
+        Map<String, Object> user = new HashMap<>();
+        user.put("dokumen", mImagePreview);
+
+        if (userID != null){
+            fStore.collection("users").document(userID).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(getApplicationContext(), "d", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "n", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+        }else {
+            fStore.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                @Override
+                public void onSuccess(DocumentReference documentReference) {
+                    Toast.makeText(getApplicationContext(), "New User Has Made!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }) .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getApplicationContext(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
