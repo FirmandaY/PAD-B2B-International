@@ -33,10 +33,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.type.DateTimeOrBuilder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -116,13 +118,7 @@ public class Register2Activity extends AppCompatActivity {
                 String email = mFormEmailAddress.getText().toString().trim();
                 String password = mFormPassword.getText().toString().trim();
                 String confirmPassword = mFormConfirmPassword.getText().toString().trim();
-                String username = mFormUsername.getText().toString();
 
-                Bundle fromRegister1 = getIntent().getExtras();
-                company = fromRegister1.getString(KEY_COMPANY);
-                country = fromRegister1.getString(KEY_COUNTRY);
-                address = fromRegister1.getString(KEY_ADDRESS);
-                phone = fromRegister1.getString(KEY_PHONE);
 
                 //Pelaksanaan Validasi Inputan Dari Pengguna
                 if (TextUtils.isEmpty(email)){
@@ -162,37 +158,8 @@ public class Register2Activity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
+                            uploadImage();
                             Toast.makeText(Register2Activity.this, "Register Completed! New User Added!", Toast.LENGTH_SHORT).show();
-
-                            //Mendefinisikan User ID (UID)
-                            userID = fAuth.getCurrentUser().getUid();
-
-                            //Membuat document(semacam tabel jika di SQL) berdasarkan User ID (UID)
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
-                            Map<String, Object>user = new HashMap<>();
-
-                            //Memasukkan data ke dalam document Ket: user.put(nama kolom/atribut , data inputan);
-                            user.put("Company Name", company);
-                            user.put("Country", country);
-                            user.put("Address", address);
-                            user.put("Phone", phone);
-
-                            user.put("Username", username);
-                            user.put("Email", email);
-
-                            //Untuk menampilkan Pesan Log saat berhasil atau gagal
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d(TAG, "onSuccess: user Profile is Created for " + userID);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "onFailure: " + e.toString());
-                                }
-                            });
-
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else {
                             Toast.makeText(Register2Activity.this, "Error: Register Failed !" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -277,7 +244,7 @@ public class Register2Activity extends AppCompatActivity {
 
         //Simpan data ke Storage
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference reference = storage.getReference("images");
+        StorageReference reference = storage.getReference("images").child("IMG" + new Date().getTime() + ".jpeg");
         UploadTask uploadTask = reference.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -292,22 +259,65 @@ public class Register2Activity extends AppCompatActivity {
                         taskSnapshot.getMetadata().getReference().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
-                                saveData();
+                                if (task.getResult() != null){
+                                    saveData(task.getResult().toString());
+                                    Toast.makeText(getApplicationContext(), "Sukses Menyimpan data Gambar!", Toast.LENGTH_SHORT).show();
+
+                                }else{
+                                    Toast.makeText(getApplicationContext(), "Terjadi Kesalahan Pada saveData!", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Terjadi Kesalahan Pada getReference!", Toast.LENGTH_SHORT).show();
                     }
+                }else {
+                    Toast.makeText(getApplicationContext(), "Terjadi Kesalahan Pada getMetadata!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    private void saveData(){
+    private void saveData(String mImagePreview){
+
+        String email = mFormEmailAddress.getText().toString().trim();
+        String username = mFormUsername.getText().toString();
+
+        Bundle fromRegister1 = getIntent().getExtras();
+        company = fromRegister1.getString(KEY_COMPANY);
+        country = fromRegister1.getString(KEY_COUNTRY);
+        address = fromRegister1.getString(KEY_ADDRESS);
+        phone = fromRegister1.getString(KEY_PHONE);
 
         //Mendefinisikan User ID (UID)
         userID = fAuth.getCurrentUser().getUid();
 
-        Map<String, Object> user = new HashMap<>();
+        //Membuat document(semacam tabel jika di SQL) berdasarkan User ID (UID)
+        DocumentReference documentReference = fStore.collection("users").document(userID);
+        Map<String, Object>user = new HashMap<>();
+
+        //Memasukkan data ke dalam document Ket: user.put(nama kolom/atribut , data inputan);
+        user.put("Company Name", company);
+        user.put("Country", country);
+        user.put("Address", address);
+        user.put("Phone", phone);
         user.put("dokumen", mImagePreview);
+
+        user.put("Username", username);
+        user.put("Email", email);
+
+        //Untuk menampilkan Pesan Log saat berhasil atau gagal
+        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d(TAG, "onSuccess: user Profile is Created for " + userID);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: " + e.toString());
+            }
+        });
 
         if (userID != null){
             fStore.collection("users").document(userID).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
