@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_b2b_bg_model1"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         tools:context=".Register2Activity">
 
         <ImageView
@@ -21,20 +21,9 @@
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/templogo" />
+            app:srcCompat="@drawable/templogo"
 
-        <EditText
-            android:id="@+id/formUsername"
-            android:layout_width="315dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="20dp"
-            android:ems="10"
-            android:fontFamily="@font/roboto_slab"
-            android:hint="Username"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/formPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="5dp"/>
 
         <TextView
             android:id="@+id/titleRegis2"
@@ -45,86 +34,113 @@
             android:text="REGISTRATION"
             android:textColor="#3E0093"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/formEmail"
+            app:layout_constraintBottom_toTopOf="@+id/formRegister2Container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/formEmail"
-            android:layout_width="315dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="12dp"
-            android:ems="10"
-            android:hint="E-mail Address"
-            android:inputType="textEmailAddress"
-            app:layout_constraintBottom_toTopOf="@+id/formUsername"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/formConfirmPassword"
-            android:layout_width="315dp"
-            android:layout_height="50dp"
-            android:ems="10"
-            android:fontFamily="@font/roboto_slab"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/titleUploadCertificate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/formPassword"
-            android:layout_width="315dp"
-            android:layout_height="50dp"
-            android:layout_marginBottom="12dp"
-            android:ems="10"
-            android:fontFamily="@font/roboto_slab"
-            android:hint="Password"
-            android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/formConfirmPassword"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/titleUploadCertificate"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/formRegister2Container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto_slab"
-            android:text="Please Upload your CV/Certificate"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.316"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/formConfirmPassword" />
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            app:cardCornerRadius="30dp"
 
-
-        <ImageView
-            android:id="@+id/imagePreview"
-            android:layout_width="240dp"
-            android:layout_height="144dp"
-            android:layout_marginTop="16dp"
-            android:background="#E6E6E6"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_add_image"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/titleUploadCertificate" />
-
-        <Button
-            android:id="@+id/buttonRegisterAccount"
-            android:layout_width="315dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#003BCD"
-            android:fontFamily="@font/roboto_slab"
-            android:text="Register"
-            app:cornerRadius="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerProgressBar2" />
+            app:layout_constraintTop_toBottomOf="@id/titleRegis2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="20dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="40dp">
+
+                <EditText
+                    android:id="@+id/formUsername"
+                    android:layout_width="315dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_slab"
+                    android:hint="Username"
+                    android:inputType="textPersonName"
+                    app:layout_constraintBottom_toTopOf="@+id/formPassword"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <EditText
+                    android:id="@+id/formEmail"
+                    android:layout_width="315dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="12dp"
+                    android:ems="10"
+                    android:hint="E-mail Address"
+                    android:inputType="textEmailAddress"
+                    app:layout_constraintBottom_toTopOf="@+id/formUsername"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <EditText
+                    android:id="@+id/formConfirmPassword"
+                    android:layout_width="315dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_slab"
+                    android:hint="Confirm Password"
+                    android:inputType="textPassword"
+                    app:layout_constraintBottom_toTopOf="@+id/titleUploadCertificate"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <EditText
+                    android:id="@+id/formPassword"
+                    android:layout_width="315dp"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="12dp"
+                    android:ems="10"
+                    android:fontFamily="@font/roboto_slab"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    app:layout_constraintBottom_toTopOf="@+id/formConfirmPassword"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/titleUploadCertificate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/roboto_slab"
+                    android:text="Please Upload your CV/Certificate"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.316"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/formConfirmPassword" />
+
+
+                <ImageView
+                    android:id="@+id/imagePreview"
+                    android:layout_width="240dp"
+                    android:layout_height="144dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#E6E6E6"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_add_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleUploadCertificate" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <ProgressBar
             android:id="@+id/registerProgressBar2"
@@ -136,7 +152,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imagePreview" />
+            app:layout_constraintTop_toBottomOf="@+id/formRegister2Container" />
+
+        <Button
+            android:id="@+id/buttonRegisterAccount"
+            android:layout_width="315dp"
+            android:layout_height="48dp"
+            android:backgroundTint="#003BCD"
+            android:fontFamily="@font/roboto_slab"
+            android:text="Register"
+            app:cornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:layout_marginBottom="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/registerProgressBar2" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

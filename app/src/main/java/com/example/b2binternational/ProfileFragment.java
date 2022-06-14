@@ -1,16 +1,27 @@
 package com.example.b2binternational;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,6 +29,15 @@ import com.google.firebase.auth.FirebaseAuth;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
+    TextView mCompanyUsername, mPhoneNumber, mEmailAddress;
+    TextView mCompanyNameData, mCountryData, mPhoneData, mAddressData;
+    ImageView mEditProfile;
+    LinearLayout mOpenStore, mSalesHistory, mPurchaseHistory;
+    //Pembuatan variabel untuk ke firebase
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,16 +77,62 @@ public class ProfileFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        // Penghubung antara file layout dengan Fragment Profile
         View profileView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        //Untuk logout
+        //Untuk Pendefinisian variabel
         LinearLayout mLogoutApp = (LinearLayout) profileView.findViewById(R.id.logoutAct);
+
+        mCompanyUsername = profileView.findViewById(R.id.companyUsername);
+        mPhoneNumber = profileView.findViewById(R.id.phoneNumber);
+        mEmailAddress = profileView.findViewById(R.id.emailAddress);
+        mEditProfile = profileView.findViewById(R.id.imageEditButton);
+
+        mCompanyNameData = profileView.findViewById(R.id.companyData);
+        mAddressData = profileView.findViewById(R.id.addressData);
+        mCountryData = profileView.findViewById(R.id.countryData);
+        mPhoneData = profileView.findViewById(R.id.phoneData);
+
+        mOpenStore = profileView.findViewById(R.id.bukaTokoAct);
+        mSalesHistory = profileView.findViewById(R.id.salesHistoryAct);
+        mPurchaseHistory = profileView.findViewById(R.id.purchaseHistoryAct);
+
+        fAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
+        userId = fAuth.getCurrentUser().getUid();
+
+        //Pemanggilan Dokumen dari Collection bernama "users" dari FirebaseFirestore berdasarkan userId
+        DocumentReference documentReference = fStore.collection("users").document(userId);
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                mCompanyUsername.setText(documentSnapshot.getString("Username"));
+                mPhoneNumber.setText(documentSnapshot.getString("Phone"));
+                mEmailAddress.setText(documentSnapshot.getString("Email"));
+
+                mCompanyNameData.setText(documentSnapshot.getString("Company Name"));
+                mAddressData.setText(documentSnapshot.getString("Address"));
+                mCountryData.setText(documentSnapshot.getString("Country"));
+                mPhoneData.setText(documentSnapshot.getString("Phone"));
+
+
+            }
+        });
+
+        //Fungsi untuk logout
         mLogoutApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

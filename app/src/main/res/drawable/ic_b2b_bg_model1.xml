@@ -1,30 +1,12 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="390dp"
-    android:height="844dp"
-    android:viewportWidth="390"
-    android:viewportHeight="844">
-  <path
-      android:pathData="M0,0h390v844h-390z"
-      android:fillColor="#ffffff"/>
-  <group>
-    <clip-path
-        android:pathData="M0,0h390v844h-390z"/>
-    <path
-        android:pathData="M0,0h390v844h-390z"
-        android:fillColor="#E5EAEC"/>
-    <path
-        android:pathData="M50,59m-90,0a90,90 0,1 1,180 0a90,90 0,1 1,-180 0"
-        android:fillColor="#05019A"/>
-    <path
-        android:pathData="M247,341.5a115,104.5 0,1 0,230 0a115,104.5 0,1 0,-230 0z"
-        android:fillColor="#3FDBF0"
-        android:fillAlpha="0.8"/>
-    <path
-        android:pathData="M222,762.5a107,100.5 0,1 0,214 0a107,100.5 0,1 0,-214 0z"
-        android:fillColor="#78ACF1"/>
-    <path
-        android:pathData="M-80,549.5a110,103.5 0,1 0,220 0a110,103.5 0,1 0,-220 0z"
-        android:fillColor="#05019A"
-        android:fillAlpha="0.7"/>
-  </group>
-</vector>
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item>
+    <shape>
+      <gradient
+          android:startColor="#4CC7E2"
+          android:endColor="#829BF4"
+          android:angle="90"
+          android:type="linear" />
+    </shape>
+  </item>
+</selector>
